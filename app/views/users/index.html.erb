@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-3">
+			<%= render 'users/profile', user: current_user, book: @book %>
+			<!--メモ　右側の指定に注意。そこを間違えるとエラーが発生して表示されない -->
+		</div>
+
+		<div class="col-xs-9">
+			<h2>Users</h2>
+			<!--users一覧 -->
+			<table class="table">
+				<thead>
+					<tr>
+						<th>image</th>
+						<th>name</th>
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @users.each do |user| %>
+					<tr>
+						<td><%= attachment_image_tag user, :profile_image, class: "img-circle pull-left profile-thumb", size: "50x50", fallback: "no-image-mini.jpg" %></td>
+						<td><%= user.name%></td>
+						<td><%= link_to "Show", user_path(user.id) %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
