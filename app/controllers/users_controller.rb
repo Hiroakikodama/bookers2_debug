@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @users = User.all
   	@books = @user.books
   	@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+    @comment = BookComment.new
   end
 
   def index

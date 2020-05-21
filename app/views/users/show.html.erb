@@ -4,7 +4,6 @@
 			<%= render 'users/profile', user: @user, book: @book %>
 		</div>
 
-
 		<div class="col-xs-9">
 			<h2>Books</h2>
 			<!--books一覧 -->
@@ -14,6 +13,8 @@
 						<th></th>
 						<th>Title</th>
 						<th>Opinion</th>
+						<th>Comments</th>
+						<th>Favorites</th>
 						<th colspan="3"></th>
 					</tr>
 				</thead>
@@ -28,6 +29,10 @@
 						</td>
 						<td><%= link_to book.title, book_path(book) %></td>
 						<td><%= book.body %></td>
+						<td>
+							<i class="fa fa-comment"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <%= book.book_comments.count %></i>
+						</td>
+						<td></td>
 					</tr>
 					<% end %>
 				</tbody>

@@ -38,11 +38,17 @@
     </header>
     <!--ヘッダーの記述-->
     <br>
-    <% if flash[:notice] %>
-      <div class="flash">
-        <%= flash[:notice] %>
+    
+    <div class="container">
+      <div class="row">
+        <% if flash[:notice] %>
+          <div class="flash col-xs-3">
+            <%= flash[:notice] %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+
     <main>
       <%= yield %>
     </main>
