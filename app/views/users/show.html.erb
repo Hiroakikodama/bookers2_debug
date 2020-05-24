@@ -32,7 +32,9 @@
 						<td>
 							<i class="fa fa-comment"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <%= book.book_comments.count %></i>
 						</td>
-						<td></td>
+						<td>
+							<i class="fa fa-heart"><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span><%= book.favorites.count %></i>
+						</td>
 					</tr>
 					<% end %>
 				</tbody>
