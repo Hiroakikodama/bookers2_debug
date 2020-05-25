@@ -3,9 +3,9 @@ class BooksController < ApplicationController
   before_action :correct_book, only: [:edit]
 
   def show
-  	@book = Book.find(params[:id])
+  	@book = Book.new
     @books = Book.find(params[:id])
-    @user = @book.user
+    @user = @books.user
     @comment = BookComment.new
   end
 

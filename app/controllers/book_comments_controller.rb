@@ -9,8 +9,6 @@ class BookCommentsController < ApplicationController
 	end
 
 	def destroy
-		BookComment.destroy(params[:id])
-		redirect_to books_path
 	end
 
 	private

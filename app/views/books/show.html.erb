@@ -10,28 +10,49 @@
 			<table class="table">
 				<tr>
 					<td>
-						<%= link_to user_path(@book.user) do %>
-							<%= attachment_image_tag @book.user, :profile_image, class: "img-circle pull-left profile-thumb", size: "50x50", fallback: "no-image-mini.jpg" %><br>
-							<%= @book.user.name %>
+						<%= link_to user_path(@books.user) do %>
+							<%= attachment_image_tag @books.user, :profile_image, class: "img-circle pull-left profile-thumb", size: "50x50", fallback: "no-image-mini.jpg" %><br>
+							<%= @books.user.name %>
 						<% end %>
 					</td>
 					<td><%= @books.title %></td>
 					<td><%= @books.body %></td>
 
 					<% if @books.user_id == current_user.id %>
-						<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
-						<td><%= link_to "Destroy", book_path(@books.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+						<td><%= link_to "Edit",edit_book_path(@books), class: "btn-sm btn-success edit_book_#{@books.id}" %></td>
+						<td><%= link_to "Destroy", book_path(@books.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %></td>
 					<% end %>
 				</tr>
 			</table>
 
-			<div class="comment^list bt style-2" id="comments">
+			<div class="comment-list bt style-2" id="comments">
 				<div class="float-wrapper">
-					<h5 class="comment-count"><%= @book.book_comments.count %>件コメント</h5>
+					<i class="comment-count">
+						<span class="glyphicon glyphicon-comment" aria-hidden="true"></span><%= @books.book_comments.count %>件コメント
+					</i>
 				</div>
+				<% if @books.favorited_by?(current_user) %>
+				<div>
+					<%= link_to book_favorites_path(@books), method: :delete do %>
+						<i class="fa fa-heart" aria-hidden="true" style="color: red;">
+							<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span>
+						</i>
+						<%= @books.favorites.count %>いいね
+					<% end %>
+				</div>
+				<% else %>
+				<div>
+					<%= link_to book_favorites_path(@books), method: :post do %>
+						<i class="fa fa-heart-o" aria-hidden="true">
+							<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+						</i>
+						<%= @books.favorites.count %>いいね
+					<% end %>
+				</div>
+				<% end %>
 			</div>
 
-			<%= form_for [@book, @comment] do |f| %>
+			<%= form_for [@books, @comment] do |f| %>
 				<div class="row">
 					<div class="col-sm-12">
 						<h5>記事へのコメント</h5>
@@ -44,12 +65,12 @@
 				<div class="col-sm-12">
 					<h5>Comments</h5>
 					<ol>
-						<% @book.book_comments.each do |book_comment| %>
+						<% @books.book_comments.each do |book_comment| %>
 						<li class="comment">
 							<div class="comment-body bb" style="border-bottom: 1px solid #DDDDDD; padding: 3px 0px;">
 								<div class="comment-avatar">
 									<div class="avatar">
-										<%= attachment_image_tag book_comment.user, :profile_image, class: "img-circle pull-left profile-thumb", size: "50x50", fallback: "no-image-mini.jpg" %><br>
+										<%= attachment_image_tag book_comment.user, :profile_image, class: "img-circle pull-left profile-thumb", size: "30x30", fallback: "no-image-mini.jpg" %><br>
 									</div>
 								</div>
 								<div class="comment-text">
