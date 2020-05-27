@@ -57,12 +57,12 @@
 					<div class="col-sm-12">
 						<h5>記事へのコメント</h5>
 						<%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "ここにコメントを入力" %>
+						<%= f.submit "送信する", class: "btn btn-md btn-base-1 mt-20 pull-right" %>
 					</div>
 				</div>
-				<%= f.submit "送信する", class: "btn btn-md btn-base-1 mt-20 pull-right" %>
 			<% end %>
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-9">
 					<h5>Comments</h5>
 					<ol>
 						<% @books.book_comments.each do |book_comment| %>
@@ -73,20 +73,25 @@
 										<%= attachment_image_tag book_comment.user, :profile_image, class: "img-circle pull-left profile-thumb", size: "30x30", fallback: "no-image-mini.jpg" %><br>
 									</div>
 								</div>
-								<div class="comment-text">
-									<div class="comment-author clearfix">
-										<a href="#" class="link-author"><%= book_comment.user.name %></a>
-										<span class="comment-meta">
-											<span class="comment-date"><%= book_comment.created_at.strftime('%Y/%m/%d') %></span>
-										</span>
-									</div>
-									<div class="comment-entry"><%= book_comment.comment %></div>
-									<% if book_comment.user == current_user %>
-										<div>
-											<%= link_to "Destroy", book_book_comment_path(book_comment), method: :delete, "data-confirm" => "本当に削除してもよろしいですか？", class: "btn-sm btn-danger pull-right" %>
-										</div>
-									<% end %>
-								</div>
+								<table>
+									<tr>
+										<td class="comment-author clearfix">
+											<a href="#" class="link-author"><%= book_comment.user.name %></a>
+											<span class="comment-meta">
+												<span class="comment-date"><%= book_comment.created_at.strftime('%Y/%m/%d') %></span>
+											</span>
+										</td>
+										<br>
+										<td class="comment-entry">
+											<%= book_comment.comment %>
+										</td>
+										<% if book_comment.user == current_user %>
+											<td>
+												<%= link_to "Destroy", book_book_comment_path(@books,book_comment), method: :delete, "data-confirm" => "本当に削除してもよろしいですか？", class: "btn-sm btn-danger pull-right" %>
+											</td>
+										<% end %>
+									</tr>
+								</table>
 							</div>
 						</li>
 						<% end %>
