@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-3">
+			<%= render 'users/profile', user: current_user, book: @book %>
+		</div>
+
+		<div class="col-xs-9">
+			<h2>Follower Users</h2>
+			<% @user.following_user.where.not(id: current_user.id).each do |user| %>
+				<table class="table table-hover table-inverse">
+					<thead>
+						<tr>
+							<th></th>
+							<th scope="col">Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th><%= attachment_image_tag user, :profile_image, size: "50x50", class: "img-circle pull-left profile-thumb", fallback: "no-image-mini.jpg" %></th>
+							<td><%= user.name %></td>
+						</tr>
+					</tbody>
+				</table>
+			<% end %>
+
+			<h2>Followed Users</h2>
+			<% @user.follower_user.where.not(id: current_user.id).each do |user| %>
+			<table class="table table-hover table-inverse">
+				<thead>
+					<tr>
+						<th></th>
+						<th scope="col">Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th><%= attachment_image_tag user, :profile_image, size: "50x50", class: "img-circle pull-left profile-thumb", fallback: "no-image-mini.jpg" %></th>
+						<td><%= user.name %></td>
+					</tr>
+				</tbody>
+			</table>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -8,4 +8,9 @@ class RelationshipsController < ApplicationController
   	current_user.unfollow(params[:id])
   	redirect_to request.referrer
   end
+
+  def index
+  	@book = Book.new
+  	@user = current_user
+  end
 end
